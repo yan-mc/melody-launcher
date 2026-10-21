@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace MelodyLauncher.Services
 {
-    /// <summary>下载源 / API 配置（与 引擎的 Api.json 同构，便于社区互抄）。</summary>
+    /// <summary>下载源 / API 配置（与内核 Api.json 同构，便于社区互抄）。</summary>
     public sealed class DownloadSourceConfig
     {
         [JsonPropertyName("name")] public string Name { get; set; } = "自定义下载源";

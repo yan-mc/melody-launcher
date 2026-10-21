@@ -20,7 +20,7 @@ namespace MelodyLauncher.Views
 {
     /// <summary>
     /// 社区资源子页（698×268 浮层）：五类资源搜索 + Modrinth 直接下载到本地目录。
-    /// 搜索走 引擎内核的 resource-search 任务；下载走 Modrinth 公开 API（CurseForge 无 API Key 不可用）。
+    /// 搜索走内核的 resource-search 任务；下载走 Modrinth 公开 API（CurseForge 无 API Key 不可用）。
     /// </summary>
     public partial class ResourceOverlay : UserControl
     {

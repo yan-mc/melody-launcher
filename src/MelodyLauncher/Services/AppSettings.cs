@@ -21,7 +21,7 @@ namespace MelodyLauncher.Services
         public bool VersionIsolation { get; set; } = true;
 
         // ---- 微软账户（正版登录）----
-        /// <summary>OAuth Client ID；默认使用 引擎 官方应用 ID，可换成自己在 Azure 注册的。</summary>
+        /// <summary>OAuth Client ID；默认使用内置应用 ID，可换成自己在 Azure 注册的。</summary>
         public string MsClientId { get; set; } = "fe72edc2-3a6f-4280-90e8-e2beb64ce7e1";
         public string MsRefreshToken { get; set; } = "";
         public string MsUserName { get; set; } = "";

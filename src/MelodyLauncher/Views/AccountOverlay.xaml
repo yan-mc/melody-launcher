@@ -76,7 +76,7 @@
         <TextBox x:Name="EditClientId" Canvas.Left="432" Canvas.Top="64" Width="236" Height="24" Style="{StaticResource Edit}" />
         <TextBlock Canvas.Left="432" Canvas.Top="94" Width="236" TextWrapping="Wrap" FontFamily="Microsoft YaHei"
                    FontSize="11" Foreground="#FF173C44"
-                   Text="默认使用 引擎 官方应用 ID。如登录提示应用不可用，可换成自己在 Azure 注册的应用（需允许公共客户端/设备代码流）。" />
+                   Text="默认使用内置应用 ID。如登录提示应用不可用，可换成自己在 Azure 注册的应用（需允许公共客户端/设备代码流）。" />
         <Button x:Name="BtnSaveClient" Canvas.Left="432" Canvas.Top="172" Width="90" Height="32" Content="保存"
                 Style="{StaticResource BtnSmall}" FontSize="13" />
 

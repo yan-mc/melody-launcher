@@ -4,7 +4,7 @@
 
 【这是什么】
 Minecraft 启动器，作者：忘却的旋律。
-全新独立前端 + PCL 内核（无头引擎），单文件绿色版：
+全新独立前端 + 内置无头内核引擎，单文件绿色版：
 整个程序只有一个 MCLauncher.exe，双击即用，无需安装、无需 .NET 运行时。
 
 【第一次使用】
@@ -22,7 +22,7 @@ Minecraft 启动器，作者：忘却的旋律。
 
 【下载中心】
 · 顶部标题栏右侧 ✕ 或按 Esc 返回主界面
-· 四个分类（与 PCL 一致）：正式版 / 预览版 / 远古版 / 愚人节版
+· 四个分类（与 内核引擎 一致）：正式版 / 预览版 / 远古版 / 愚人节版
 · 点一行选中版本 → 点「下载」→ 安装类型子页：
     - 原版：只安装游戏本体
     - Forge / Fabric / NeoForge / OptiFine / LiteLoader：装到独立实例，不影响其它版本
@@ -41,13 +41,13 @@ Minecraft 启动器，作者：忘却的旋律。
 · 5 类：Mod / 整合包 / 资源包 / 光影 / 数据包
 · 关键词 + 版本 + 加载器 → 搜索（Modrinth；CurseForge 需 API Key）
 · 选中结果后「下载到本地」（双击也行）：自动放进当前版本的隔离目录
-  （版本隔离开启时是 versions/<版本>/mods 等，与 PCL 一致）
+  （版本隔离开启时是 versions/<版本>/mods 等，与 内核引擎 一致）
 · 整合包会下载 .mrpack 并尝试调用内核安装
 
 【微软登录（正版）】
 · 右键菜单「账户（正版登录）…」或设置里「正版登录测试」
 · 点「微软登录」→ 自动打开微软网页并复制设备代码 → 网页输入代码 → 回到启动器等待
-· 默认使用 PCL 官方应用 ID；如失效可在账户页填入自己在 Azure 注册的应用 ID
+· 默认使用 内置应用 ID；如失效可在账户页填入自己在 Azure 注册的应用 ID
 · 登录成功后，启动游戏自动使用微软账户；离线登录仍可在设置里改游戏名
 
 【设置】
@@ -58,7 +58,7 @@ Minecraft 启动器，作者：忘却的旋律。
 · 启动器设置：%AppData%\MelodyLauncher\settings.json
 · 下载源配置：%AppData%\MelodyLauncher\Api.json
 · 引擎工作目录：%LocalAppData%\MelodyLauncher\jobs\
-· 引擎副本：%LocalAppData%\MelodyLauncher\engine\PCL.exe（首次运行自动释放）
+· 引擎副本：%LocalAppData%\MelodyLauncher\engine\内核引擎.exe（首次运行自动释放）
 · Minecraft：默认 %AppData%\.minecraft（可在设置/首次设置中改）
 · 版本隔离开启时，Mod/存档/资源包在 .minecraft\versions\<版本>\ 下
 删除方式：删掉 MCLauncher.exe 与上述目录即可，不写系统服务/不装驱动。

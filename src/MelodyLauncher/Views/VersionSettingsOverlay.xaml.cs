@@ -1287,14 +1287,14 @@ namespace MelodyLauncher.Views
         private string VersionDir(string version) => Path.Combine(McFolder, "versions", version);
 
         /// <summary>
-        /// 判断该版本是否使用版本隔离（引擎的 PathIndie 指向版本目录）：
+        /// 判断该版本是否使用版本隔离（隔离时 PathIndie 指向版本目录）：
         /// 版本目录下出现 mods/saves/resourcepacks/shaderpacks/config/logs 任一目录即视为隔离实例。
         /// 这是启发式判断，用于选择「打开/扫描哪个目录」。
         /// </summary>
         private bool IsVersionIsolated(string version)
         {
-            // 统一跟随全局「版本隔离」设置（引擎 2.13+ 默认开启），
-            // 保证本页扫描的目录与 引擎 引擎/资源下载使用同一路径。
+            // 统一跟随全局「版本隔离」设置（默认开启），
+            // 保证本页扫描的目录与内核/资源下载使用同一路径。
             return MelodyLauncher.Services.InstancePaths.IsIsolated && !string.IsNullOrWhiteSpace(version);
         }
 

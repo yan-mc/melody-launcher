@@ -4,9 +4,9 @@ using System.IO;
 namespace MelodyLauncher.Services
 {
     /// <summary>
-    /// 版本目录解析。引擎 2.13+ 默认「版本隔离」：mods/资源包/光影/存档等位于
+    /// 版本目录解析。默认「版本隔离」：mods/资源包/光影/存档等位于
     /// .minecraft/versions/&lt;版本&gt;/ 下，而不是 .minecraft/ 根目录。
-    /// 全项目统一从这里取目录，保证启动器各页面与 引擎 引擎看到的是同一份文件。
+    /// 全项目统一从这里取目录，保证启动器各页面与内核读到的是同一份文件。
     /// </summary>
     public static class InstancePaths
     {

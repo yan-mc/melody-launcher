@@ -29,10 +29,10 @@ namespace MelodyLauncher.Views
             TextAbout.Text =
                 "MCLauncher 5.31（旋律启动器复刻版）\n" +
                 "前端：.NET 8 WPF 全新实现（非 引擎 换皮）\n" +
-                "引擎：引擎 5.31 无头子进程（协议 v1 / build 1）\n" +
+                "内核：MCLauncher 5.31 无头子进程（协议 v1 / build 1）\n" +
                 "作者：忘却的旋律\n" +
                 "版本：" + ver + "   构建：" + File.GetLastWriteTime(typeof(AboutOverlay).Assembly.Location).ToString("yyyy-MM-dd") + "\n" +
-                "说明：界面复刻自 2014 年旋律启动器，功能由 引擎内核提供。";
+                "说明：界面复刻自 2014 年旋律启动器，功能由内置内核提供。";
 
             var appData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MelodyLauncher");
             var localAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MelodyLauncher");

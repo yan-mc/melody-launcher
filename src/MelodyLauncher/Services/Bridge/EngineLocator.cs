@@ -4,7 +4,7 @@ using System.IO;
 namespace MelodyLauncher.Services.Bridge
 {
     /// <summary>
-    /// 定位 引擎内核 exe。
+    /// 定位内核可执行文件。
     /// 单文件发布时引擎会被解压到 %TEMP%\.net\... 下，路径含 '='/'+' 会让 引擎（.NET Framework）启动失败（exit=4），
     /// 因此检测到不稳定路径时自动复制到 %LocalAppData%\MelodyLauncher\engine\ 再使用。
     /// </summary>
