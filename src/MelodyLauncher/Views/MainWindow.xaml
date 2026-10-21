@@ -28,6 +28,7 @@
                 <MenuItem x:Name="MenuLogs" Header="运行日志…" />
                 <MenuItem x:Name="MenuAbout" Header="关于…" />
                 <Separator />
+                <MenuItem x:Name="MenuChooseMc" Header="选择游戏目录…" />
                 <MenuItem x:Name="MenuOpenMc" Header="打开游戏目录" />
                 <MenuItem x:Name="MenuCloseOverlay" Header="关闭当前浮层" />
             </ContextMenu>
@@ -66,6 +67,15 @@
             <Button x:Name="BtnVersionSettings" Style="{StaticResource BtnText}" Content="版本设置"
                     Canvas.Left="620" Canvas.Top="393" Width="100" Height="25"
                     HorizontalContentAlignment="Left" Padding="6,0,0,0" />
+
+            <!-- transient main status (e.g. after choosing game dir) -->
+            <TextBlock x:Name="MainStatus" Canvas.Left="10" Canvas.Top="405" Width="400" Height="20"
+                       Visibility="Collapsed" FontFamily="Microsoft YaHei" FontSize="11"
+                       Foreground="#F2F6FA" VerticalAlignment="Center" TextTrimming="CharacterEllipsis">
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="2" ShadowDepth="1" Direction="315" Opacity="0.8" Color="#FF000000" />
+                </TextBlock.Effect>
+            </TextBlock>
 
             <!-- credit -->
             <TextBlock x:Name="LabelCredit" Canvas.Left="4" Canvas.Top="433"

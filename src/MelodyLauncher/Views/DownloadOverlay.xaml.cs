@@ -44,7 +44,13 @@ namespace MelodyLauncher.Views
         public DownloadOverlay()
         {
             InitializeComponent();
-            Loaded += async (s, e) => await EnsureLoadedAsync();
+            try { var __mc = MelodyLauncher.Services.AppSettings.Load().McFolder;  } catch { }
+            
+            Loaded += async (s, e) =>
+            {
+                // 只有页面真正可见时才加载版本列表；隐藏时不要后台起任务（避免启动即联网/建目录）
+                if (IsVisible) await EnsureLoadedAsync();
+            };
             BtnPageClose.Click += (s, e) => CloseRequested?.Invoke(this, EventArgs.Empty);
             BtnCommunity.Click += (s, e) => CommunityRequested?.Invoke(this, EventArgs.Empty);
             BtnDownload.Click += (s, e) =>
@@ -62,10 +68,13 @@ namespace MelodyLauncher.Views
 
         private EngineClient Backend => _backend ??= new EngineClient(new EngineClientOptions
         {
-            EngineExePath = EngineLocator.Resolve(),
-            WorkRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                    "MelodyLauncher", "jobs")
-        });
+            EngineExePath = EngineLocator.Resolve()        });
+
+        /// <summary>页面被打开时调用，真正开始加载版本列表。</summary>
+        public void EnsureLoaded()
+        {
+            _ = EnsureLoadedAsync();
+        }
 
         private void SetStatus(string text, bool error = false)
         {

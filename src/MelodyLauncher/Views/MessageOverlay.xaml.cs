@@ -11,6 +11,8 @@ namespace MelodyLauncher.Views
         public MessageOverlay()
         {
             InitializeComponent();
+            try { var __mc = MelodyLauncher.Services.AppSettings.Load().McFolder;  } catch { }
+            
             BtnClose.Click += (s, e) => Dismissed?.Invoke(this, EventArgs.Empty);
             BtnConfirm.Click += (s, e) => Dismissed?.Invoke(this, EventArgs.Empty);
         }

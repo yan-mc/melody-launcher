@@ -17,6 +17,8 @@ namespace MelodyLauncher.Views
         public DownloadSourceOverlay()
         {
             InitializeComponent();
+            try { var __mc = MelodyLauncher.Services.AppSettings.Load().McFolder;  } catch { }
+            
             BtnClose.Click += (s, e) => CloseRequested?.Invoke(this, EventArgs.Empty);
             BtnSave.Click += (s, e) => Save();
             BtnReset.Click += (s, e) => Reset();

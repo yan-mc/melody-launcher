@@ -12,13 +12,13 @@ namespace MelodyLauncher.Views
     {
         public event EventHandler CloseRequested;
 
-        private static string JobsDir => Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "MelodyLauncher", "jobs");
+        private static string JobsDir => MelodyLauncher.Services.AppPaths.JobsDir;
 
         public LogsOverlay()
         {
             InitializeComponent();
+            try { var __mc = MelodyLauncher.Services.AppSettings.Load().McFolder;  } catch { }
+            
             BtnClose.Click += (s, e) => CloseRequested?.Invoke(this, EventArgs.Empty);
             BtnRefresh.Click += (s, e) => Refresh();
             BtnCopy.Click += (s, e) =>

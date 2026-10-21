@@ -23,9 +23,7 @@ namespace MelodyLauncher.Services
             [JsonPropertyName("to")] public string To { get; set; } = "";
         }
 
-        public static string FilePath => Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "MelodyLauncher", "Api.json");
+        public static string FilePath => AppPaths.ApiFile;
 
         public static DownloadSourceConfig Load()
         {

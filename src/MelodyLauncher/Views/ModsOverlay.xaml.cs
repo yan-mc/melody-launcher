@@ -33,6 +33,8 @@ namespace MelodyLauncher.Views
         public ModsOverlay()
         {
             InitializeComponent();
+            try { var __mc = MelodyLauncher.Services.AppSettings.Load().McFolder;  } catch { }
+            
             BtnClose.Click += (s, e) => CloseRequested?.Invoke(this, EventArgs.Empty);
             BtnScan.Click += async (s, e) => await ScanAsync();
             BtnEnable.Click += async (s, e) => await SetEnabledAsync(true);
@@ -43,10 +45,7 @@ namespace MelodyLauncher.Views
 
         private EngineClient Backend => _backend ??= new EngineClient(new EngineClientOptions
         {
-            EngineExePath = EngineLocator.Resolve(),
-            WorkRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                    "MelodyLauncher", "jobs")
-        });
+            EngineExePath = EngineLocator.Resolve()        });
 
         public void Refresh()
         {

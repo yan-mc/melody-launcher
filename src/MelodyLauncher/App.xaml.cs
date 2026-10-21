@@ -12,10 +12,9 @@ namespace MelodyLauncher
         {
             try
             {
-                var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                       "MelodyLauncher");
+                var dir = MelodyLauncher.Services.AppPaths.DataDir;
                 Directory.CreateDirectory(dir);
-                File.AppendAllText(Path.Combine(dir, "crash.log"),
+                File.AppendAllText(MelodyLauncher.Services.AppPaths.CrashLogFile,
                     "==== " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " ====\r\n" + ex + "\r\n\r\n");
             }
             catch { }
@@ -42,19 +41,21 @@ namespace MelodyLauncher
             var args = Environment.GetCommandLineArgs();
             bool forceFirstRun = args.Contains("--first-run");
             bool skipFirstRun = args.Contains("--skip-firstrun");
-            string settingsPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "MelodyLauncher", "settings.json");
+            string settingsPath = MelodyLauncher.Services.AppPaths.SettingsFile;
+            bool freshSettings = !File.Exists(settingsPath);
+            if (freshSettings)
+                MelodyLauncher.Services.AppPaths.CreateDefaultGameDirIfMissing();
             if (args.Contains("--auto-setup"))
             {
                 var s = MelodyLauncher.Services.AppSettings.Load();
                 var found = MelodyLauncher.Services.JavaScanner.FindJava();
                 if (found.Count > 0) s.JavaPath = found[0];
+                if (string.IsNullOrWhiteSpace(s.McFolder)) s.McFolder = MelodyLauncher.Services.AppPaths.DefaultMcFolder;
+                try { System.IO.Directory.CreateDirectory(s.McFolder); } catch { }
                 s.Save();
                 skipFirstRun = true;
             }
             bool firstRun = forceFirstRun || !File.Exists(settingsPath);
-
             if (firstRun && !skipFirstRun)
             {
                 var win = new FirstRunWindow();

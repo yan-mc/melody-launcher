@@ -31,10 +31,8 @@ public sealed class EngineClientOptions
     public string EngineExePath { get; set; } =
         Path.Combine(AppContext.BaseDirectory, "engine", "core.exe");
 
-    /// <summary>任务工作目录（task.json / progress.jsonl / control.json）。建议 %LocalAppData%\MelodyLauncher\jobs。</summary>
-    public string WorkRoot { get; set; } =
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                     "MelodyLauncher", "jobs");
+    /// <summary>任务工作目录（task.json / progress.jsonl / control.json）。默认跟随启动器数据目录。</summary>
+    public string WorkRoot { get; set; } = MelodyLauncher.Services.AppPaths.JobsDir;
 
     /// <summary>
     /// 可选：把后端 exe 作为嵌入资源（Assembly 资源名）首次运行时释放。

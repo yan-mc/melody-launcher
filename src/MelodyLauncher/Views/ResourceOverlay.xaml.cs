@@ -56,6 +56,8 @@ namespace MelodyLauncher.Views
         public ResourceOverlay()
         {
             InitializeComponent();
+            try { var __mc = MelodyLauncher.Services.AppSettings.Load().McFolder;  } catch { }
+            
 
             BtnClose.Click += (s, e) => CloseRequested?.Invoke(this, EventArgs.Empty);
             BtnSearch.Click += async (s, e) => await SearchAsync();
@@ -91,10 +93,7 @@ namespace MelodyLauncher.Views
 
         private EngineClient Backend => _backend ??= new EngineClient(new EngineClientOptions
         {
-            EngineExePath = EngineLocator.Resolve(),
-            WorkRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                    "MelodyLauncher", "jobs")
-        });
+            EngineExePath = EngineLocator.Resolve()        });
 
         /// <summary>MainWindow 打开浮层时调用；保留上次结果，只刷新提示。</summary>
         public void Refresh()

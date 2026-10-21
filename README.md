@@ -32,6 +32,23 @@
 
 更多截图见 [docs/screenshots](docs/screenshots)。
 
+
+## 便携说明（重要）
+
+本启动器是**绿色便携版**：整个文件夹复制到任意可写位置即可使用。
+
+- 启动器配置：`<exe 同目录>\data\settings.json`
+- 游戏目录：默认 `<exe 同目录>\.minecraft`（首次启动自动创建）
+- 版本显示框状态：
+  - 游戏目录不存在 → 显示「请选择目录」，点击或右键菜单「选择游戏目录…」可选择
+  - 目录存在但没有版本 → 显示「空」/「未安装版本」
+- exe 放在不可写位置（如 Program Files）时，自动回退到
+  `%LocalAppData%\MelodyLauncher`（配置）与 `%AppData%\.minecraft`（游戏目录）
+
+| 目录缺失 | 空目录 |
+|---|---|
+| ![](docs/screenshots/目录缺失状态.png) | ![](docs/screenshots/主界面.png) |
+
 ## 下载
 
 从仓库 **Releases** 下载 `MCLauncher.exe`（单文件，约 70MB，零依赖，Win10/11 直接双击运行）。

@@ -22,6 +22,8 @@ namespace MelodyLauncher.Views
         public SettingsOverlay()
         {
             InitializeComponent();
+            try { var __mc = MelodyLauncher.Services.AppSettings.Load().McFolder;  } catch { }
+            
             BtnPanelClose.Click += (s, e) => CloseRequested?.Invoke(this, EventArgs.Empty);
             BtnSaveSettings.Click += (s, e) => Save();
             BtnBrowseJava.Click += (s, e) => BrowseJava();

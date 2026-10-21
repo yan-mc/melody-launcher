@@ -18,8 +18,7 @@ namespace MelodyLauncher.Services.Bridge
             var candidates = new[]
             {
                 Path.Combine(AppContext.BaseDirectory, "engine", "core.exe"),
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                             "MelodyLauncher", "engine", "core.exe"),
+                Path.Combine(MelodyLauncher.Services.AppPaths.DataDir, "engine", "core.exe"),
                 // dev fallback: repo work dir
                 Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "work", "bridge-fork", "out", "core.exe")),
             };
@@ -45,8 +44,7 @@ namespace MelodyLauncher.Services.Bridge
         {
             try
             {
-                var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                       "MelodyLauncher", "engine");
+                var dir = MelodyLauncher.Services.AppPaths.EngineDir;
                 var dst = Path.Combine(dir, "core.exe");
                 Directory.CreateDirectory(dir);
                 var srcLen = new FileInfo(src).Length;

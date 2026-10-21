@@ -18,11 +18,14 @@ namespace MelodyLauncher.Views
         private AppSettings _settings = AppSettings.Load();
         private EngineClient? _backend;
         private string _selectedVersion = "";
+        private bool _dirMissing;
         private string? _launching;
 
         public MainWindow()
         {
             InitializeComponent();
+            try { var __mc = MelodyLauncher.Services.AppSettings.Load().McFolder;  } catch { }
+            
             BtnClose.Click += (s, e) => Close();
             BtnSettings.Click += (s, e) => OpenSettings();
             BtnUpdate.Click += (s, e) => OpenDownload();
@@ -77,6 +80,12 @@ namespace MelodyLauncher.Views
             MenuLogs.Click += (s, e) => OpenLogs();
             MenuAbout.Click += (s, e) => OpenAbout();
             MenuOpenMc.Click += (s, e) => OpenMcFolder();
+            MenuChooseMc.Click += (s, e) => ChooseMcFolder();
+            VersionBorder.Cursor = System.Windows.Input.Cursors.Hand;
+            VersionBorder.MouseLeftButtonUp += (s, e) =>
+            {
+                if (_dirMissing) ChooseMcFolder();
+            };
             MenuCloseOverlay.Click += (s, e) => CloseOverlays();
             MouseLeftButtonDown += (s, e) =>
             {
@@ -97,6 +106,7 @@ namespace MelodyLauncher.Views
                 else if (args.Contains("--open-mods")) OpenMods();
                 else if (args.Contains("--open-resources")) OpenResources();
                 else if (args.Contains("--open-version")) OpenVersionSettings();
+                else if (args.Contains("--choose-dir")) ChooseMcFolder();
                 else if (args.Contains("--open-account")) OpenAccount();
                 else if (args.Contains("--open-loader"))
                 {
@@ -133,15 +143,23 @@ namespace MelodyLauncher.Views
 
         private EngineClient Backend => _backend ??= new EngineClient(new EngineClientOptions
         {
-            EngineExePath = EngineLocator.Resolve(),
-            WorkRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                    "MelodyLauncher", "jobs")
-        });
+            EngineExePath = EngineLocator.Resolve()        });
 
         // ---------- installed versions ----------
         private void LoadInstalledVersions()
         {
-            var versionsDir = Path.Combine(_settings.McFolder, "versions");
+            _selectedVersion = "";
+            var mcFolder = _settings.McFolder;
+            _dirMissing = string.IsNullOrWhiteSpace(mcFolder) || !Directory.Exists(mcFolder);
+            if (_dirMissing)
+            {
+                VersionText.Text = "请选择目录";
+                VersionText.ToolTip = "游戏目录不存在：点击这里选择游戏目录";
+                VersionText.Foreground = new SolidColorBrush(Color.FromRgb(0x8B, 0x1A, 0x1A));
+                return;
+            }
+
+            var versionsDir = Path.Combine(mcFolder, "versions");
             var list = new System.Collections.Generic.List<string>();
             try
             {
@@ -155,17 +173,58 @@ namespace MelodyLauncher.Views
             catch { }
             list.Sort((a, b) => string.Compare(b, a, StringComparison.OrdinalIgnoreCase));
 
-            if (list.Count == 0)
-            {
-                VersionText.Text = "未安装版本";
-                _selectedVersion = "";
-            }
-            else
+            VersionText.Foreground = new SolidColorBrush(Color.FromRgb(0x33, 0x35, 0x36));
+            if (list.Count > 0)
             {
                 var preferred = list.Contains(_settings.LastVersion) ? _settings.LastVersion : list[0];
                 _selectedVersion = preferred;
                 VersionText.Text = preferred;
+                VersionText.ToolTip = "当前选中的游戏版本（在「版本设置」里切换）";
+                return;
             }
+
+            // 目录存在但没有可识别的版本：空目录显示「空」，否则显示未安装
+            bool empty = false;
+            try { empty = Directory.GetFileSystemEntries(mcFolder).Length == 0; } catch { }
+            VersionText.Text = empty ? "空" : "未安装版本";
+            VersionText.ToolTip = empty ? "游戏目录为空：点「更新游戏」下载一个版本" : "游戏目录里没有可用的版本";
+        }
+
+        /// <summary>选择游戏目录（点击「请选择目录」或右键菜单）。</summary>
+        public void ChooseMcFolder()
+        {
+            var dlg = new Microsoft.Win32.OpenFolderDialog
+            {
+                Title = "选择游戏目录（.minecraft 或包含 versions 的目录）",
+                Multiselect = false
+            };
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(_settings.McFolder) && Directory.Exists(_settings.McFolder))
+                    dlg.InitialDirectory = _settings.McFolder;
+            }
+            catch { }
+            if (dlg.ShowDialog(this) != true) return;
+            _settings.McFolder = dlg.FolderName;
+            _settings.Save();
+            LoadInstalledVersions();
+            SetMainStatus("游戏目录已设置为：" + _settings.McFolder, false);
+        }
+
+        /// <summary>主界面底部的一行临时状态提示（10 秒后消失）。</summary>
+        private async void SetMainStatus(string text, bool error)
+        {
+            try
+            {
+                MainStatus.Text = text;
+                MainStatus.Foreground = new SolidColorBrush(error
+                    ? Color.FromRgb(0x8B, 0x1A, 0x1A)
+                    : Color.FromRgb(0xF2, 0xF6, 0xFA));
+                MainStatus.Visibility = Visibility.Visible;
+                await Task.Delay(10000);
+                MainStatus.Visibility = Visibility.Collapsed;
+            }
+            catch { }
         }
 
         // ---------- actions ----------
@@ -264,6 +323,7 @@ namespace MelodyLauncher.Views
         public void OpenDownload()
         {
             ShowOnly(DownloadPanel);
+            DownloadPanel.EnsureLoaded();
         }
 
         public void OpenLoader(string mcVersion)

@@ -26,6 +26,8 @@ namespace MelodyLauncher.Views
         public AccountOverlay()
         {
             InitializeComponent();
+            try { var __mc = MelodyLauncher.Services.AppSettings.Load().McFolder;  } catch { }
+            
             BtnClose.Click += (s, e) => { CancelLogin(); CloseRequested?.Invoke(this, EventArgs.Empty); };
             BtnLogin.Click += async (s, e) => await StartLoginAsync();
             BtnLogout.Click += (s, e) => Logout();

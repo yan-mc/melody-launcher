@@ -7,8 +7,7 @@ namespace MelodyLauncher.Services
     /// <summary>启动器设置（JSON，位于 %AppData%\MelodyLauncher\settings.json）。</summary>
     public sealed class AppSettings
     {
-        public string McFolder { get; set; } =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft");
+        public string McFolder { get; set; } = AppPaths.DefaultMcFolder;
         public string OfflineName { get; set; } = "Player";
         public string JavaPath { get; set; } = "";
         public int MemoryMB { get; set; } = 1024;
@@ -27,9 +26,7 @@ namespace MelodyLauncher.Services
         public string MsUserName { get; set; } = "";
         public string MsUuid { get; set; } = "";
 
-        private static string FilePath => Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "MelodyLauncher", "settings.json");
+        private static string FilePath => AppPaths.SettingsFile;
 
         public static AppSettings Load()
         {
@@ -42,6 +39,7 @@ namespace MelodyLauncher.Services
             }
             catch { }
             s ??= new AppSettings();
+            if (string.IsNullOrWhiteSpace(s.McFolder)) s.McFolder = AppPaths.DefaultMcFolder;
             // 测试钩子：MELODY_MC 覆盖 .minecraft 目录（不写入配置文件）
             var mc = Environment.GetEnvironmentVariable("MELODY_MC");
             if (!string.IsNullOrEmpty(mc)) s.McFolder = mc;
