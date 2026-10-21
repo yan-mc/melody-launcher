@@ -1,0 +1,9 @@
+# build output
+bin/
+obj/
+*.user
+.vs/
+
+# kernel binary is distributed with release, not source
+src/MelodyLauncher/engine/core.exe
+src/MelodyLauncher/engine/*.exe

@@ -1,0 +1,44 @@
+<Window x:Class="MelodyLauncher.Views.FirstRunWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="第一次进入游戏" Width="400" Height="180"
+        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+        Background="Transparent" WindowStartupLocation="CenterScreen"
+        UseLayoutRounding="True" SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display">
+    <Border Margin="0" CornerRadius="2" BorderBrush="#FF191919" BorderThickness="1.1428" ClipToBounds="True">
+        <Border.Background>
+            <ImageBrush ImageSource="/Assets/backgrounds/sky.png" Stretch="UniformToFill" />
+        </Border.Background>
+        <Canvas>
+            <!-- 游戏名字 -->
+            <TextBlock Canvas.Left="25" Canvas.Top="35" Width="65" Height="30" Text="游戏名字"
+                       FontFamily="Microsoft YaHei" FontSize="13" Foreground="#FF10222F" VerticalAlignment="Center" />
+            <TextBox x:Name="EditName" Canvas.Left="95" Canvas.Top="35" Width="100" Height="30"
+                     FontFamily="Microsoft YaHei" FontSize="13" VerticalContentAlignment="Center" Padding="4,0" />
+            <!-- 最大内存 -->
+            <TextBlock Canvas.Left="210" Canvas.Top="35" Width="100" Height="30" Text="最大内存"
+                       FontFamily="Microsoft YaHei" FontSize="13" Foreground="#FF10222F" VerticalAlignment="Center" />
+            <TextBox x:Name="EditMemory" Canvas.Left="285" Canvas.Top="35" Width="60" Height="30" Text="1024"
+                     FontFamily="Microsoft YaHei" FontSize="13" VerticalContentAlignment="Center" Padding="4,0" />
+            <TextBlock Canvas.Left="350" Canvas.Top="35" Width="30" Height="30" Text="MB"
+                       FontFamily="Microsoft YaHei" FontSize="13" Foreground="#FF10222F" VerticalAlignment="Center" />
+            <!-- java路径 -->
+            <TextBlock Canvas.Left="25" Canvas.Top="80" Width="70" Height="25" Text="java路径"
+                       FontFamily="Microsoft YaHei" FontSize="13" Foreground="#FF10222F" VerticalAlignment="Center" />
+            <TextBox x:Name="EditJava" Canvas.Left="95" Canvas.Top="80" Width="200" Height="25"
+                     FontFamily="Microsoft YaHei" FontSize="12" VerticalContentAlignment="Center" Padding="4,0" />
+            <Button x:Name="BtnBrowse" Canvas.Left="300" Canvas.Top="79" Width="70" Height="35" Content="浏览"
+                    FontFamily="Microsoft YaHei" FontSize="13" Cursor="Hand"
+                    Background="#EFE9EDEE" BorderBrush="#FF8C9AA3" BorderThickness="1" />
+            <!-- 完成 -->
+            <Button x:Name="BtnDone" Canvas.Left="290" Canvas.Top="125" Width="85" Height="35" Content="完成设置"
+                    FontFamily="Microsoft YaHei" FontSize="13" Cursor="Hand"
+                    Background="#EFE9EDEE" BorderBrush="#FF8C9AA3" BorderThickness="1" />
+            <!-- 自动查找 -->
+            <TextBlock x:Name="TextHint" Canvas.Left="25" Canvas.Top="150" Width="240" Height="20"
+                       FontFamily="Microsoft YaHei" FontSize="11" Foreground="#FF1C3A4A"
+                       Text="已自动扫描 Java（可点浏览修改）" VerticalAlignment="Center" />
+        </Canvas>
+    </Border>
+</Window>

@@ -1,0 +1,55 @@
+﻿================================================================
+ MCLauncher 5.31  ·  下载源（API）说明
+================================================================
+
+一、图形界面（推荐）
+----------------------------------------------------------------
+下载中心右上角「下载源…」→ 打开配置页：
+· 下载源预设：自动（内置，推荐）/ Mojang 官方源 / BMCLAPI 镜像源 / 自定义
+· API 配置：名称、版本清单 URL、Mod 镜像、URL 重写规则（每行 from = to）
+· 按钮：测试连接（真实请求 + 显示状态码与耗时）/ 保存 / 恢复默认
+保存后对所有新任务生效（获取版本列表、安装、启动检查均使用）。
+
+二、配置文件（与 PCL 的 Api.json 同构，可互相复制）
+----------------------------------------------------------------
+位置：%AppData%\MelodyLauncher\Api.json
+
+{
+  "name": "我的下载源",
+  "version_manifest": "https://example.com/mc/game/version_manifest_v2.json",
+  "mod_mirror": "https://example.com",
+  "mode": "auto",
+  "rules": [
+    { "from": "https://piston-meta.mojang.com", "to": "https://example.com" },
+    { "from": "https://libraries.minecraft.net", "to": "https://example.com/libraries" }
+  ]
+}
+
+字段：
+· mode：auto（自动择优）/ official（官方优先）/ mirror（镜像优先）/ custom（配合下方自定义）
+· version_manifest：版本清单完整 URL（留空用内置源）
+· mod_mirror：Mod/整合包镜像根地址（留空用内置）
+· rules：URL 重写，from 为匹配子串、to 为替换内容，按顺序执行
+
+三、可直接抄的示例
+----------------------------------------------------------------
+【全走 BMCLAPI】
+{ "mode": "mirror", "version_manifest": "https://bmclapi2.bangbang93.com/mc/game/version_manifest_v2.json", "rules": [] }
+
+【自建反代（与官方同构）】
+{ "mode": "custom",
+  "version_manifest": "https://mc.example.com/mc/game/version_manifest_v2.json",
+  "rules": [
+    { "from": "https://piston-meta.mojang.com", "to": "https://mc.example.com" },
+    { "from": "https://piston-data.mojang.com", "to": "https://mc.example.com" },
+    { "from": "https://libraries.minecraft.net", "to": "https://mc.example.com/libraries" },
+    { "from": "https://resources.download.minecraft.net", "to": "https://mc.example.com/assets" }
+  ] }
+
+四、排错
+----------------------------------------------------------------
+· 保存后不生效：确认点的是「保存」；配置对新任务生效
+· 测试连接失败：先在浏览器打开该 URL；镜像站需支持 https 且返回 JSON
+· 想回默认：点「恢复默认」或删除 Api.json 后重启
+· 下载 403/429：镜像限频，会自动换源/重试；也可换官方源
+================================================================

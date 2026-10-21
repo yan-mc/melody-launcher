@@ -1,0 +1,69 @@
+<UserControl x:Class="MelodyLauncher.Views.AboutOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="698" Height="268"
+             UseLayoutRounding="True" SnapsToDevicePixels="True"
+             TextOptions.TextFormattingMode="Display">
+    <Canvas>
+        <!-- edge shadow rings: outside the panel only so the translucent veil is not darkened -->
+        <Border Width="698" Height="268" CornerRadius="14" Margin="-10" BorderThickness="10"
+                BorderBrush="#14000000" IsHitTestVisible="False" />
+        <Border Width="698" Height="268" CornerRadius="10" Margin="-5" BorderThickness="5"
+                BorderBrush="#1E000000" IsHitTestVisible="False" />
+
+        <Border Width="698" Height="268" CornerRadius="5.5" BorderBrush="#63A5A1A1" BorderThickness="0.5714">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#9474C2E5" Offset="0" />
+                    <GradientStop Color="#94A6DAEF" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <Path Stroke="#45173C44" StrokeThickness="0.5714" Data="M80,30 H400 V210 H15 V30 H22" />
+        <TextBlock Canvas.Left="25" Canvas.Top="22" Text="关于" FontFamily="Microsoft YaHei" FontSize="12" Foreground="#FF000000" />
+        <Path Stroke="#45173C44" StrokeThickness="0.5714" Data="M480,30 H673 V210 H422 V30 H429" />
+        <TextBlock Canvas.Left="432" Canvas.Top="22" Text="相关位置" FontFamily="Microsoft YaHei" FontSize="12" Foreground="#FF000000" />
+
+        <TextBlock x:Name="TextAbout" Canvas.Left="32" Canvas.Top="46" Width="350" TextWrapping="Wrap"
+                   FontFamily="Microsoft YaHei" FontSize="12" Foreground="#FF10222F" LineHeight="20" />
+
+        <TextBlock Canvas.Left="432" Canvas.Top="46" Width="230" Text="设置文件" FontFamily="Microsoft YaHei"
+                   FontSize="11" Foreground="#FF173C44" />
+        <TextBlock x:Name="TextSettingsPath" Canvas.Left="432" Canvas.Top="62" Width="236" FontFamily="Consolas"
+                   FontSize="10" Foreground="#FF0E2A3A" TextTrimming="CharacterEllipsis" />
+        <TextBlock Canvas.Left="432" Canvas.Top="82" Width="230" Text="下载源配置" FontFamily="Microsoft YaHei"
+                   FontSize="11" Foreground="#FF173C44" />
+        <TextBlock x:Name="TextApiPath" Canvas.Left="432" Canvas.Top="98" Width="236" FontFamily="Consolas"
+                   FontSize="10" Foreground="#FF0E2A3A" TextTrimming="CharacterEllipsis" />
+        <TextBlock Canvas.Left="432" Canvas.Top="118" Width="230" Text="引擎目录" FontFamily="Microsoft YaHei"
+                   FontSize="11" Foreground="#FF173C44" />
+        <TextBlock x:Name="TextEnginePath" Canvas.Left="432" Canvas.Top="134" Width="236" FontFamily="Consolas"
+                   FontSize="10" Foreground="#FF0E2A3A" TextTrimming="CharacterEllipsis" />
+        <TextBlock Canvas.Left="432" Canvas.Top="154" Width="230" Text="任务目录" FontFamily="Microsoft YaHei"
+                   FontSize="11" Foreground="#FF173C44" />
+        <TextBlock x:Name="TextJobsPath" Canvas.Left="432" Canvas.Top="170" Width="236" FontFamily="Consolas"
+                   FontSize="10" Foreground="#FF0E2A3A" TextTrimming="CharacterEllipsis" />
+        <TextBlock Canvas.Left="432" Canvas.Top="190" Width="230" Text="游戏目录" FontFamily="Microsoft YaHei"
+                   FontSize="11" Foreground="#FF173C44" />
+        <TextBlock x:Name="TextMcPath" Canvas.Left="432" Canvas.Top="206" Width="236" FontFamily="Consolas"
+                   FontSize="10" Foreground="#FF0E2A3A" TextTrimming="CharacterEllipsis" />
+
+        <Button x:Name="BtnOpenData" Canvas.Left="160" Canvas.Top="216" Width="90" Height="32" Content="打开数据目录"
+                Style="{StaticResource BtnSmall}" FontSize="12" />
+        <Button x:Name="BtnOpenMc" Canvas.Left="260" Canvas.Top="216" Width="90" Height="32" Content="打开游戏目录"
+                Style="{StaticResource BtnSmall}" FontSize="12" />
+
+        <Button x:Name="BtnClose" Canvas.Left="656" Canvas.Top="4" Width="22" Height="22"
+                Cursor="Hand" Background="Transparent" BorderThickness="0">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="Transparent">
+                        <Path Data="M0,0 L11,11 M11,0 L0,11" Stroke="#F2FFFFFF" StrokeThickness="2"
+                              HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Canvas>
+</UserControl>

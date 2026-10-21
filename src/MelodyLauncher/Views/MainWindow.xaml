@@ -1,0 +1,127 @@
+<Window x:Class="MelodyLauncher.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:MelodyLauncher.Views"
+        Title="MCLauncher"
+        Width="720" Height="450"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="True"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="Grayscale">
+
+    <Grid x:Name="Root">
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem x:Name="MenuDownload" Header="下载中心…" />
+                <MenuItem x:Name="MenuVersionSettings" Header="版本设置…" />
+                <MenuItem x:Name="MenuAccount" Header="账户（正版登录）…" />
+                <MenuItem x:Name="MenuSource" Header="下载源 API…" />
+                <Separator />
+                <MenuItem x:Name="MenuMods" Header="Mod 管理…" />
+                <MenuItem x:Name="MenuResources" Header="社区资源…" />
+                <MenuItem x:Name="MenuLogs" Header="运行日志…" />
+                <MenuItem x:Name="MenuAbout" Header="关于…" />
+                <Separator />
+                <MenuItem x:Name="MenuOpenMc" Header="打开游戏目录" />
+                <MenuItem x:Name="MenuCloseOverlay" Header="关闭当前浮层" />
+            </ContextMenu>
+        </Grid.ContextMenu>
+        <!-- background content card: 708x438 at (6,6), radius 2, white 40% border -->
+        <Border x:Name="ContentCard" Margin="6" CornerRadius="2" ClipToBounds="True"
+                BorderBrush="#66FFFFFF" BorderThickness="0.5714">
+            <Border.Background>
+                <ImageBrush x:Name="BgBrush" ImageSource="/Assets/backgrounds/main.png" Stretch="UniformToFill" />
+            </Border.Background>
+        </Border>
+
+        <!-- controls layer (window coordinates) -->
+        <Canvas x:Name="Layer">
+            <!-- launch (150x75) -->
+            <Button x:Name="BtnLaunch" Style="{StaticResource BtnBig}" Content="启动游戏"
+                    Canvas.Left="430" Canvas.Top="310" Width="150" Height="75" />
+
+            <!-- download center -->
+            <Button x:Name="BtnUpdate" Style="{StaticResource BtnSmall}" Content="更新游戏"
+                    Canvas.Left="590" Canvas.Top="310" Width="100" Height="35" />
+
+            <!-- settings -->
+            <Button x:Name="BtnSettings" Style="{StaticResource BtnSmall}" Content="设置"
+                    Canvas.Left="590" Canvas.Top="350" Width="100" Height="35" />
+
+            <!-- current version (display only, not a combo) -->
+            <Border x:Name="VersionBorder" Canvas.Left="430" Canvas.Top="390" Width="185" Height="30"
+                    Background="#E7F5F7F8" BorderBrush="#FFB8C4CC" BorderThickness="0.5714" CornerRadius="0.5714">
+                <TextBlock x:Name="VersionText" Margin="9,0,10,0" VerticalAlignment="Center"
+                           FontFamily="Microsoft YaHei" FontSize="13" Foreground="#FF333536"
+                           TextTrimming="CharacterEllipsis" Text="未安装版本" />
+            </Border>
+
+            <!-- version settings (text button) -->
+            <Button x:Name="BtnVersionSettings" Style="{StaticResource BtnText}" Content="版本设置"
+                    Canvas.Left="620" Canvas.Top="393" Width="100" Height="25"
+                    HorizontalContentAlignment="Left" Padding="6,0,0,0" />
+
+            <!-- credit -->
+            <TextBlock x:Name="LabelCredit" Canvas.Left="4" Canvas.Top="433"
+                       FontFamily="SimSun" FontSize="14" Foreground="{StaticResource TextCredit}"
+                       Text="MineCraft Launcher 5.31 by 忘却的旋律">
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="1" ShadowDepth="1" Direction="315" Opacity="0.55" Color="#FF000000" />
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <!-- close button (top-right) -->
+            <Button x:Name="BtnClose" Width="24" Height="24"
+                    Canvas.Left="682" Canvas.Top="4" Cursor="Hand" Background="Transparent" BorderThickness="0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <Path Data="M0,0 L12,12 M12,0 L0,12" Stroke="#E6FFFFFF" StrokeThickness="2"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.75" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Canvas>
+
+        <!-- message box -->
+        <Grid x:Name="MsgHost" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <views:MessageOverlay x:Name="MsgBox" />
+        </Grid>
+
+        <!-- overlay host -->
+        <Grid x:Name="OverlayHost" Visibility="Collapsed">
+            <views:DownloadOverlay x:Name="DownloadPanel" Visibility="Collapsed"
+                                   HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <views:LoaderOverlay x:Name="LoaderPanel" Visibility="Collapsed"
+                                 HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,91,0,0" />
+            <views:DownloadSourceOverlay x:Name="SourcePanel" Visibility="Collapsed"
+                                         HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,91,0,0" />
+            <views:SettingsOverlay x:Name="SettingsPanel" Visibility="Collapsed"
+                                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,91,0,0" />
+            <views:AboutOverlay x:Name="AboutPanel" Visibility="Collapsed"
+                                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,91,0,0" />
+            <views:LogsOverlay x:Name="LogsPanel" Visibility="Collapsed"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,91,0,0" />
+            <views:ModsOverlay x:Name="ModsPanel" Visibility="Collapsed"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,91,0,0" />
+            <views:ResourceOverlay x:Name="ResourcePanel" Visibility="Collapsed"
+                                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,91,0,0" />
+            <views:AccountOverlay x:Name="AccountPanel" Visibility="Collapsed"
+                                  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,91,0,0" />
+            <views:VersionSettingsOverlay x:Name="VersionPanel" Visibility="Collapsed"
+                                          HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,91,0,0" />
+        </Grid>
+    </Grid>
+</Window>
